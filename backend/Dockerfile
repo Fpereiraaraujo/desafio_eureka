@@ -1,13 +1,16 @@
-FROM eclipse-temurin:17-jdk-alpine AS build
-WORKDIR /app
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
-RUN ./mvnw -B -DskipTests package
+# Usamos uma imagem leve com Java 17
+FROM openjdk:17-jdk-slim
 
-FROM eclipse-temurin:17-jre-alpine
+# Diretório de trabalho dentro do container
 WORKDIR /app
-COPY --from=build /app/target/cooperfilme-processor-0.0.1-SNAPSHOT.jar app.jar
+
+# Copiamos o JAR gerado pelo Maven para dentro do container
+# Certifique-se de rodar "mvn clean package" antes
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+
+# Porta que o Spring Boot vai expor
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+
+# Comando para rodar o Spring Boot
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -1,63 +1,45 @@
 version: '3.8'
 
-
 networks:
-cooper-net:
-driver: bridge
-
+  cooper-net:
+    driver: bridge
 
 services:
-cooper_db:
-image: mysql:8.0
-container_name: cooperfilme_mysql_db
-environment:
-MYSQL_ROOT_PASSWORD: root_password
-MYSQL_DATABASE: cooperfilme_production
-MYSQL_USER: user
-MYSQL_PASSWORD: password
-ports:
-  - "33060:3306" # porta exposta não-padrão localmente
-volumes:
-  - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-healthcheck:
-test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
-interval: 10s
-timeout: 5s
-retries: 5
-networks:
-  - cooper-net
-restart: unless-stopped
+  cooper_db:
+    image: mysql:8.0
+    container_name: cooperfilme_mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: cooperfilme_production
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "33060:3306"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cooper-net
+    restart: unless-stopped
 
-
-cooper_processor_api:
-build:
-context: ./backend
-dockerfile: Dockerfile
-container_name: cooperfilme_processor_api
-depends_on:
-cooper_db:
-condition: service_healthy
-environment:
-SPRING_PROFILES_ACTIVE: docker
-SPRING_DATASOURCE_URL: jdbc:mysql://cooper_db:3306/cooperfilme_production?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-SPRING_DATASOURCE_USERNAME: user
-SPRING_DATASOURCE_PASSWORD: password
-ports:
-  - "18080:8080" # porta local não-padrão
-networks:
-  - cooper-net
-restart: on-failure
-
-
-cooper_front:
-build:
-context: ./front
-dockerfile: Dockerfile
-container_name: cooperfilme_front
-depends_on:
-  - cooper_processor_api
-ports:
-  - "30030:3000"
-networks:
-  - cooper-net
-restart: unless-stopped
+  cooper_processor_api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cooperfilme_processor_api
+    depends_on:
+      - cooper_db
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://cooper_db:3306/cooperfilme_production?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "18080:8080"
+    networks:
+      - cooper-net
+    restart: on-failure
