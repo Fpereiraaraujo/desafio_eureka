@@ -1,8 +1,8 @@
 package com.fernandopereira.cooperfilme.adapter.out;
 
 import com.fernandopereira.cooperfilme.adapter.out.mapper.ActorMapper;
-import com.fernandopereira.domain.user.Actor;
-import com.fernandopereira.ports.out.ActorRepositoryPort;
+import com.fernandopereira.cooperfilme.domain.user.Actor;
+import com.fernandopereira.cooperfilme.ports.out.ActorRepositoryPort;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

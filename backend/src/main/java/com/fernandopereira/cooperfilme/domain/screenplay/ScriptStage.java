@@ -1,4 +1,4 @@
-package com.fernandopereira.domain.screenplay;
+package com.fernandopereira.cooperfilme.domain.screenplay;
 
 public enum ScriptStage {
     PENDING_INTAKE,   // aguardando_analise

@@ -2,8 +2,9 @@ package com.fernandopereira.cooperfilme.adapter.out;
 
 import com.fernandopereira.cooperfilme.adapter.out.entity.ScreenplayEntity;
 import com.fernandopereira.cooperfilme.adapter.out.mapper.ScreenplayMapper;
-import com.fernandopereira.domain.screenplay.Screenplay;
-import com.fernandopereira.ports.out.ScreenplayRepositoryPort;
+import com.fernandopereira.cooperfilme.domain.screenplay.Screenplay;
+import com.fernandopereira.cooperfilme.domain.screenplay.ScriptStage;
+import com.fernandopereira.cooperfilme.ports.out.ScreenplayRepositoryPort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class ScreenplayRepositoryAdapter implements ScreenplayRepositoryPort {
     @Override
     public List<Screenplay> findByStage(String stageName) {
         try {
-            com.fernandopereira.domain.screenplay.ScriptStage st = com.fernandopereira.domain.screenplay.ScriptStage.valueOf(stageName);
+            ScriptStage st = ScriptStage.valueOf(stageName);
             return jpa.findByStage(st).stream().map(ScreenplayMapper::toDomain).collect(Collectors.toList());
         } catch (Exception ex) {
             return List.of();

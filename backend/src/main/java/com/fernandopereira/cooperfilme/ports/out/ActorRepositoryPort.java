@@ -1,6 +1,6 @@
-package com.fernandopereira.ports.out;
+package com.fernandopereira.cooperfilme.ports.out;
 
-import com.fernandopereira.domain.user.Actor;
+import com.fernandopereira.cooperfilme.domain.user.Actor;
 
 import java.util.Optional;
 

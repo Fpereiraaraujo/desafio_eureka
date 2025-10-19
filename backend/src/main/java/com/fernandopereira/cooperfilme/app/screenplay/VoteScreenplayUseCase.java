@@ -1,8 +1,9 @@
 package com.fernandopereira.cooperfilme.app.screenplay;
 
-import com.fernandopereira.domain.screenplay.Screenplay;
-import com.fernandopereira.domain.screenplay.VoteDecision;
-import com.fernandopereira.ports.out.ScreenplayRepositoryPort;
+import com.fernandopereira.cooperfilme.domain.screenplay.Screenplay;
+import com.fernandopereira.cooperfilme.domain.screenplay.ScriptStage;
+import com.fernandopereira.cooperfilme.domain.screenplay.VoteDecision;
+import com.fernandopereira.cooperfilme.ports.out.ScreenplayRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -17,8 +18,8 @@ public class VoteScreenplayUseCase {
 
     public Screenplay vote(Long id, VoteDecision decision) {
         Screenplay p = repo.findById(id).orElseThrow(() -> new NoSuchElementException("Not found"));
-        if (p.getStage() != com.fernandopereira.domain.screenplay.ScriptStage.WAITING_BOARD
-                && p.getStage() != com.fernandopereira.domain.screenplay.ScriptStage.BOARD_VOTING) {
+        if (p.getStage() != ScriptStage.WAITING_BOARD
+                && p.getStage() != ScriptStage.BOARD_VOTING) {
             throw new IllegalStateException("Not in voting stage");
         }
 
@@ -29,15 +30,15 @@ public class VoteScreenplayUseCase {
         }
 
         // first vote -> move to BOARD_VOTING
-        if (p.getStage() == com.fernandopereira.domain.screenplay.ScriptStage.WAITING_BOARD) {
-            p.setStage(com.fernandopereira.domain.screenplay.ScriptStage.BOARD_VOTING);
+        if (p.getStage() == ScriptStage.WAITING_BOARD) {
+            p.setStage(ScriptStage.BOARD_VOTING);
         }
 
         // evaluate final
         if (p.getRejectionsCount() > 0) {
-            p.setStage(com.fernandopereira.domain.screenplay.ScriptStage.FINAL_REJECTED);
+            p.setStage(ScriptStage.FINAL_REJECTED);
         } else if (p.getApprovalsCount() >= 3) {
-            p.setStage(com.fernandopereira.domain.screenplay.ScriptStage.FINAL_APPROVED);
+            p.setStage(ScriptStage.FINAL_APPROVED);
         }
 
         return repo.save(p);

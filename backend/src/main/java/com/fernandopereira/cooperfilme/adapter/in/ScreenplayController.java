@@ -1,8 +1,8 @@
 package com.fernandopereira.cooperfilme.adapter.in;
 
 import com.fernandopereira.cooperfilme.app.screenplay.*;
-import com.fernandopereira.domain.screenplay.Screenplay;
-import com.fernandopereira.domain.screenplay.VoteDecision;
+import com.fernandopereira.cooperfilme.domain.screenplay.Screenplay;
+import com.fernandopereira.cooperfilme.domain.screenplay.VoteDecision;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

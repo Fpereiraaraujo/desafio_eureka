@@ -1,4 +1,4 @@
-package com.fernandopereira.domain.user;
+package com.fernandopereira.cooperfilme.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

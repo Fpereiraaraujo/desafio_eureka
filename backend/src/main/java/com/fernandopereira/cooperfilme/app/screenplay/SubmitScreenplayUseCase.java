@@ -1,8 +1,8 @@
 package com.fernandopereira.cooperfilme.app.screenplay;
 
-import com.fernandopereira.domain.screenplay.Screenplay;
-import com.fernandopereira.domain.screenplay.ScriptStage;
-import com.fernandopereira.ports.out.ScreenplayRepositoryPort;
+import com.fernandopereira.cooperfilme.domain.screenplay.Screenplay;
+import com.fernandopereira.cooperfilme.domain.screenplay.ScriptStage;
+import com.fernandopereira.cooperfilme.ports.out.ScreenplayRepositoryPort;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;

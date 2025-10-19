@@ -1,5 +1,6 @@
 package com.fernandopereira.cooperfilme.adapter.out.entity;
 
+import com.fernandopereira.cooperfilme.domain.screenplay.ScriptStage;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.OffsetDateTime;
@@ -22,7 +23,7 @@ public class ScreenplayEntity {
     private String clientPhone;
 
     @Enumerated(EnumType.STRING)
-    private com.fernandopereira.domain.screenplay.ScriptStage stage;
+    private ScriptStage stage;
 
     private OffsetDateTime createdAt;
 

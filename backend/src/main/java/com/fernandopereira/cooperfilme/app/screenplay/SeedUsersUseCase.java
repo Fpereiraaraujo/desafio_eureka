@@ -1,8 +1,8 @@
 package com.fernandopereira.cooperfilme.app.screenplay;
 
-import com.fernandopereira.domain.user.AccessRole;
-import com.fernandopereira.domain.user.Actor;
-import com.fernandopereira.ports.out.ActorRepositoryPort;
+import com.fernandopereira.cooperfilme.domain.user.AccessRole;
+import com.fernandopereira.cooperfilme.domain.user.Actor;
+import com.fernandopereira.cooperfilme.ports.out.ActorRepositoryPort;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

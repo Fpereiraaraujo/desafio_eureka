@@ -1,4 +1,4 @@
-package com.fernandopereira.domain.screenplay;
+package com.fernandopereira.cooperfilme.domain.screenplay;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,5 +1,6 @@
 package com.fernandopereira.cooperfilme.adapter.out.entity;
 
+import com.fernandopereira.cooperfilme.domain.user.AccessRole;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,5 +20,5 @@ public class ActorEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "actor_roles", joinColumns = @JoinColumn(name = "actor_id"))
-    private Set<com.fernandopereira.domain.user.AccessRole> roles;
+    private Set<AccessRole> roles;
 }
