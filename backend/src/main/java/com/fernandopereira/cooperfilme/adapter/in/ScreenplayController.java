@@ -1,6 +1,6 @@
-package com.fernandopereira.adapter.in;
+package com.fernandopereira.cooperfilme.adapter.in;
 
-import com.fernandopereira.app.screenplay.*;
+import com.fernandopereira.cooperfilme.app.screenplay.*;
 import com.fernandopereira.domain.screenplay.Screenplay;
 import com.fernandopereira.domain.screenplay.VoteDecision;
 import jakarta.validation.Valid;

@@ -1,7 +1,7 @@
-package com.fernandopereira.adapter.out;
+package com.fernandopereira.cooperfilme.adapter.out;
 
-import com.fernandopereira.adapter.out.entity.ScreenplayEntity;
-import com.fernandopereira.adapter.out.mapper.ScreenplayMapper;
+import com.fernandopereira.cooperfilme.adapter.out.entity.ScreenplayEntity;
+import com.fernandopereira.cooperfilme.adapter.out.mapper.ScreenplayMapper;
 import com.fernandopereira.domain.screenplay.Screenplay;
 import com.fernandopereira.ports.out.ScreenplayRepositoryPort;
 import org.springframework.stereotype.Component;

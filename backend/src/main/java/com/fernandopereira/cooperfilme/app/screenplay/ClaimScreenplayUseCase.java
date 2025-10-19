@@ -1,4 +1,4 @@
-package com.fernandopereira.app.screenplay;
+package com.fernandopereira.cooperfilme.app.screenplay;
 
 
 import com.fernandopereira.domain.screenplay.Screenplay;

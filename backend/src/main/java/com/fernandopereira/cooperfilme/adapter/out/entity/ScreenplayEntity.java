@@ -1,4 +1,4 @@
-package com.fernandopereira.adapter.out.entity;
+package com.fernandopereira.cooperfilme.adapter.out.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

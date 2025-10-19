@@ -1,6 +1,6 @@
-package com.fernandopereira.adapter.out;
+package com.fernandopereira.cooperfilme.adapter.out;
 
-import com.fernandopereira.adapter.out.entity.ActorEntity;
+import com.fernandopereira.cooperfilme.adapter.out.entity.ActorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

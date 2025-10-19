@@ -1,16 +1,19 @@
-# Usamos uma imagem leve com Java 17
-FROM openjdk:17-jdk-slim
-
-# Diretório de trabalho dentro do container
+# ===== Etapa 1: Build =====
+FROM maven:3.9.3 AS build
 WORKDIR /app
 
-# Copiamos o JAR gerado pelo Maven para dentro do container
-# Certifique-se de rodar "mvn clean package" antes
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+# Copia o pom.xml
+COPY pom.xml ./
 
-# Porta que o Spring Boot vai expor
+# Copia o código fonte
+COPY src ./src
+
+# Build do JAR
+RUN mvn clean package -DskipTests
+
+# ===== Etapa 2: Runtime =====
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Comando para rodar o Spring Boot
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]

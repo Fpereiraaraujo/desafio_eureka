@@ -1,20 +1,15 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/cooperfilme_production?useSSL=false&serverTimezone=UTC}
-    username: ${SPRING_DATASOURCE_USERNAME:user}
-    password: ${SPRING_DATASOURCE_PASSWORD:password}
+    url: jdbc:mysql://cooper_db:3306/cooperfilme_production?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        format_sql: false
-    show-sql: false
-
-server:
-  port: 8080
-
-cooper:
-  jwt:
-    secret: verysecretkeychangeit
-    expiration-ms: 86400000
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect

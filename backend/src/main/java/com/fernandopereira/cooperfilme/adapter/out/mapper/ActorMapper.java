@@ -1,6 +1,6 @@
-package com.fernandopereira.adapter.out.mapper;
+package com.fernandopereira.cooperfilme.adapter.out.mapper;
 
-import com.fernandopereira.adapter.out.entity.ActorEntity;
+import com.fernandopereira.cooperfilme.adapter.out.entity.ActorEntity;
 import com.fernandopereira.domain.user.Actor;
 
 public class ActorMapper {

@@ -1,19 +1,18 @@
 package com.fernandopereira.domain.screenplay;
 
-import com.fernandopereira.domain.screenplay.ScriptStage;
 import org.springframework.stereotype.Component;
 
 @Component
 public class WorkflowEngine {
 
-    public ScriptStage nextOnAnalystDecision(ScriptStage current, boolean isGoodIdea) {
-        if (current != ScriptStage.UNDER_REVIEW) throw new IllegalStateException("Invalid current stage for analyst decision");
-        return isGoodIdea ? ScriptStage.WAITING_EDIT : ScriptStage.FINAL_REJECTED;
-    }
-
     public ScriptStage nextOnClaim(ScriptStage current) {
         if (current != ScriptStage.PENDING_INTAKE) throw new IllegalStateException("Only pending intake can be claimed");
         return ScriptStage.UNDER_REVIEW;
+    }
+
+    public ScriptStage nextOnAnalystDecision(ScriptStage current, boolean isGoodIdea) {
+        if (current != ScriptStage.UNDER_REVIEW) throw new IllegalStateException("Invalid stage for analyst decision");
+        return isGoodIdea ? ScriptStage.WAITING_EDIT : ScriptStage.FINAL_REJECTED;
     }
 
     public ScriptStage nextOnReviewerClaim(ScriptStage current) {

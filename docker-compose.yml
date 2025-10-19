@@ -1,8 +1,9 @@
-version: '3.8'
-
 networks:
   cooper-net:
     driver: bridge
+
+volumes:
+  db_data:
 
 services:
   cooper_db:
@@ -16,23 +17,25 @@ services:
     ports:
       - "33060:3306"
     volumes:
+      - db_data:/var/lib/mysql
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
     networks:
       - cooper-net
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uuser", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   cooper_processor_api:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: ./backend       # aqui apontando para a pasta do Dockerfile
+      dockerfile: Dockerfile   # nome exato do Dockerfile dentro da pasta backend
     container_name: cooperfilme_processor_api
     depends_on:
-      - cooper_db
+      cooper_db:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:mysql://cooper_db:3306/cooperfilme_production?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC

@@ -1,6 +1,6 @@
-package com.fernandopereira.adapter.out.mapper;
+package com.fernandopereira.cooperfilme.adapter.out.mapper;
 
-import com.fernandopereira.adapter.out.entity.ScreenplayEntity;
+import com.fernandopereira.cooperfilme.adapter.out.entity.ScreenplayEntity;
 import com.fernandopereira.domain.screenplay.Screenplay;
 
 public class ScreenplayMapper {

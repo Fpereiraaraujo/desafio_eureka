@@ -1,4 +1,4 @@
-package com.fernandopereira.app.screenplay;
+package com.fernandopereira.cooperfilme.app.screenplay;
 
 import com.fernandopereira.domain.user.AccessRole;
 import com.fernandopereira.domain.user.Actor;
