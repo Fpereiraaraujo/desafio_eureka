@@ -51,65 +51,52 @@ cooperfilme/
 
 ---
 
-# Usuários padrões (Seed inicial)
 
-Quando o backend é iniciado, os seguintes usuários são criados automaticamente com seus respectivos papéis e credenciais:
+---
 
-👩 Content Analyst
+## Usuários padrões (Seed inicial)
 
+### 👩 Content Analyst
 Responsável por analisar a submissão após o cliente enviá-la.
 
-Nome	Email	Senha	Role
-Helena Motta	helena.motta@cooper.io
-	Analyst#2025	CONTENT_ANALYST
+| Nome         | Email                  | Senha          | Role             |
+|-------------|-----------------------|---------------|----------------|
+| Helena Motta | helena.motta@cooper.io | Analyst#2025  | CONTENT_ANALYST |
 
-Ações que executa no fluxo:
+**Ações no fluxo:**
+- `POST /v1/scripts/{id}/claim` → Reivindicar submissão
+- `POST /v1/scripts/{id}/analyze` → Aprovar ou rejeitar
 
-POST /v1/scripts/{id}/claim → Reivindicar submissão
+---
 
-POST /v1/scripts/{id}/analyze → Aprovar ou rejeitar
-
-🛠 Quality Reviser
-
+### 🛠 Quality Reviser
 Faz a revisão após a análise positiva do analista.
 
-Nome	Email	Senha	Role
-Igor Sena	igor.sena@cooper.io
-	Reviser#2025	QUALITY_REVISER
+| Nome     | Email                 | Senha          | Role             |
+|---------|----------------------|---------------|----------------|
+| Igor Sena | igor.sena@cooper.io  | Reviser#2025  | QUALITY_REVISER |
 
-Ações que executa no fluxo:
+**Ações no fluxo:**
+- `POST /v1/scripts/{id}/review/claim` → Reivindicar revisão
+- `POST /v1/scripts/{id}/review/finish` → Finalizar revisão
 
-POST /v1/scripts/{id}/review/claim → Reivindicar revisão
+---
 
-POST /v1/scripts/{id}/review/finish → Finalizar revisão
-
-🏛 Board Approvers
-
+### 🏛 Board Approvers
 Três aprovadores responsáveis por votar no roteiro revisado.
 
-Nome	Email	Senha	Role
-Lara Torres	lara.torres@cooper.io
-	Approver1#2025	BOARD_APPROVER
-Thiago Brandao	thiago.brandao@cooper.io
-	Approver2#2025	BOARD_APPROVER
-Emanuel Lima	emanuel.lima@cooper.io
-	Approver3#2025	BOARD_APPROVER
+| Nome         | Email                  | Senha          | Role          |
+|-------------|-----------------------|---------------|---------------|
+| Lara Torres  | lara.torres@cooper.io | Approver1#2025 | BOARD_APPROVER |
+| Thiago Brandao | thiago.brandao@cooper.io | Approver2#2025 | BOARD_APPROVER |
+| Emanuel Lima | emanuel.lima@cooper.io | Approver3#2025 | BOARD_APPROVER |
 
-Ações que executam no fluxo:
+**Ações no fluxo:**
+- `POST /v1/scripts/{id}/vote`  
+  ```json
+  { "decision": "APPROVE" }
+  { "decision": "REJECT" }
 
-POST /v1/scripts/{id}/vote
-
-{ "decision": "APPROVE" }  
-{ "decision": "REJECT" }
-
-
-Regras de aprovação final:
-
-✅ 3 votos APPROVE → FINAL_APPROVED
-
-❌ 1 voto REJECT → FINAL_REJECTED
-
-Enquanto isso → BOARD_VOTING
 
 ## Funcionalidades
 
