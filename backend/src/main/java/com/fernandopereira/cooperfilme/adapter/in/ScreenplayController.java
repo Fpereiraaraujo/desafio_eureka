@@ -125,6 +125,14 @@ public class ScreenplayController {
         }
     }
 
+    @Operation(summary = "Listar todas as submissões (apenas autenticado)")
+    @GetMapping("/scripts/all")
+    @PreAuthorize("hasAnyRole('CONTENT_ANALYST','QUALITY_REVISER','BOARD_APPROVER')")
+    public ResponseEntity<List<Screenplay>> allSubmissions() {
+        List<Screenplay> submissions = list.listAll(); // usando o ListScreenplaysUseCase
+        return ResponseEntity.ok(submissions);
+    }
+
     // DTOs
     static class SubmitReq {
         private String title;

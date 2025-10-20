@@ -22,7 +22,7 @@ public class SubmitScreenplayUseCase {
                 .clientName(clientName)
                 .clientEmail(clientEmail)
                 .clientPhone(clientPhone)
-                .stage(ScriptStage.PENDING_INTAKE)
+                .stage(ScriptStage.AWAITING_ANALYSIS)
                 .createdAt(OffsetDateTime.now())
                 .approvalsCount(0)
                 .rejectionsCount(0)

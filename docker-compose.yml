@@ -30,8 +30,8 @@ services:
 
   cooper_processor_api:
     build:
-      context: ./backend       # aqui apontando para a pasta do Dockerfile
-      dockerfile: Dockerfile   # nome exato do Dockerfile dentro da pasta backend
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: cooperfilme_processor_api
     depends_on:
       cooper_db:
@@ -46,3 +46,14 @@ services:
     networks:
       - cooper-net
     restart: on-failure
+
+  cooper_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cooperfilme_frontend
+    ports:
+      - "3000:3000" # porta padrão do React
+    networks:
+      - cooper-net
+    restart: unless-stopped

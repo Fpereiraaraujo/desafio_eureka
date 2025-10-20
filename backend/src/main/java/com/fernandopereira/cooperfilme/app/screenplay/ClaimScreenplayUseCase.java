@@ -21,8 +21,7 @@ public class ClaimScreenplayUseCase {
 
     public Screenplay claim(Long id) {
         Screenplay p = repo.findById(id).orElseThrow(() -> new NoSuchElementException("Not found"));
-        ScriptStage next = engine.nextOnClaim(p.getStage());
-        p.setStage(next);
+        p.setStage(engine.nextOnClaim(p.getStage()));
         return repo.save(p);
     }
 }

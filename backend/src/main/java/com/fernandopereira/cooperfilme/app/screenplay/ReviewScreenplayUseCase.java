@@ -25,9 +25,10 @@ public class ReviewScreenplayUseCase {
 
     public Screenplay finishReview(Long id, String notes) {
         Screenplay p = repo.findById(id).orElseThrow(() -> new NoSuchElementException("Not found"));
-        // append notes to analystNote
-        String old = p.getAnalystNote() == null ? "" : p.getAnalystNote() + "\n";
-        p.setAnalystNote(old + "REVIEW: " + notes);
+
+        String oldNotes = p.getAnalystNote() == null ? "" : p.getAnalystNote() + "\n";
+        p.setAnalystNote(oldNotes + "[REVIEW] " + notes);
+
         p.setStage(engine.nextOnReviewerFinish(p.getStage()));
         return repo.save(p);
     }

@@ -18,9 +18,10 @@ public class VoteScreenplayUseCase {
 
     public Screenplay vote(Long id, VoteDecision decision) {
         Screenplay p = repo.findById(id).orElseThrow(() -> new NoSuchElementException("Not found"));
-        if (p.getStage() != ScriptStage.WAITING_BOARD
-                && p.getStage() != ScriptStage.BOARD_VOTING) {
-            throw new IllegalStateException("Not in voting stage");
+
+        if (p.getStage() != ScriptStage.AWAITING_APPROVAL
+                && p.getStage() != ScriptStage.IN_APPROVAL) {
+            throw new IllegalStateException("Screenplay is not in approval stage");
         }
 
         if (decision == VoteDecision.APPROVE) {
@@ -29,16 +30,16 @@ public class VoteScreenplayUseCase {
             p.setRejectionsCount(p.getRejectionsCount() + 1);
         }
 
-        // first vote -> move to BOARD_VOTING
-        if (p.getStage() == ScriptStage.WAITING_BOARD) {
-            p.setStage(ScriptStage.BOARD_VOTING);
+        // Primeiro voto -> muda para IN_APPROVAL
+        if (p.getStage() == ScriptStage.AWAITING_APPROVAL) {
+            p.setStage(ScriptStage.IN_APPROVAL);
         }
 
-        // evaluate final
+        // Avaliação final
         if (p.getRejectionsCount() > 0) {
-            p.setStage(ScriptStage.FINAL_REJECTED);
+            p.setStage(ScriptStage.REJECTED);
         } else if (p.getApprovalsCount() >= 3) {
-            p.setStage(ScriptStage.FINAL_APPROVED);
+            p.setStage(ScriptStage.APPROVED);
         }
 
         return repo.save(p);

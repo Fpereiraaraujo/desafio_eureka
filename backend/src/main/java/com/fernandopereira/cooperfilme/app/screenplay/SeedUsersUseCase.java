@@ -22,7 +22,7 @@ public class SeedUsersUseCase implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Idempotent se já existir
+
         if (repo.findByEmail("helena.motta@cooper.io").isPresent()) return;
 
         Actor analyst = Actor.builder()
