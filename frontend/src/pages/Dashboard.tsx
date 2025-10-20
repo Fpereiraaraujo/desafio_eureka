@@ -1,4 +1,3 @@
-// src/pages/Dashboard.tsx
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -155,22 +154,15 @@ export default function Dashboard() {
         }
     };
 
-
-
-
-    const handleVote = async (id: number, decision: 'YES' | 'NO') => {
+    // Votação (APPROVE ou REJECT)
+    const handleVote = async (id: number, decision: 'APPROVE' | 'REJECT') => {
         try {
             setLoading({ ...loading, [id]: true });
-
-            // backend deve retornar a submissão completa atualizada
             const updated: Submission = await voteSubmission(id, token, decision);
             await reloadSubmissions();
-
-            // atualiza a submissão no estado usando o objeto completo retornado
             setSubmissions(subs =>
                 subs.map(s => s.id === id ? updated : s)
             );
-
         } catch (err: any) {
             console.error(err);
             setErrorMessage(err.response?.data?.error || 'Erro ao votar');
@@ -178,9 +170,6 @@ export default function Dashboard() {
             setLoading({ ...loading, [id]: false });
         }
     };
-
-
-
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
@@ -220,7 +209,6 @@ export default function Dashboard() {
                             Aprovações: {s.approvalsCount} | Rejeições: {s.rejectionsCount}
                         </p>
 
-                        {/* AWAITING_ANALYSIS */}
                         {s.stage === 'AWAITING_ANALYSIS' && (
                             <button
                                 onClick={() => handleClaim(s.id)}
@@ -231,7 +219,6 @@ export default function Dashboard() {
                             </button>
                         )}
 
-                        {/* IN_ANALYSIS */}
                         {s.stage === 'IN_ANALYSIS' && (
                             <div className="space-y-2">
                                 <input
@@ -265,7 +252,6 @@ export default function Dashboard() {
                             </div>
                         )}
 
-                        {/* AWAITING_REVIEW */}
                         {s.stage === 'AWAITING_REVIEW' && (
                             <button
                                 onClick={() => handleReviewClaim(s.id)}
@@ -276,7 +262,6 @@ export default function Dashboard() {
                             </button>
                         )}
 
-                        {/* IN_REVIEW */}
                         {s.stage === 'IN_REVIEW' && (
                             <div className="space-y-2">
                                 <input
@@ -301,39 +286,35 @@ export default function Dashboard() {
                             </div>
                         )}
 
-                        {/* AWAITING_APPROVAL */}
                         {s.stage === 'AWAITING_APPROVAL' && (
                             <div className="flex gap-2 mt-2">
                                 <button
-                                    onClick={() => handleVote(s.id, 'YES')}
+                                    onClick={() => handleVote(s.id, 'APPROVE')}
                                     className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
                                     disabled={loading[s.id]}
                                 >
-                                    {loading[s.id] ? 'Processando...' : 'Votar YES'}
+                                    {loading[s.id] ? 'Processando...' : 'Aprovar'}
                                 </button>
                                 <button
-                                    onClick={() => handleVote(s.id, 'NO')}
+                                    onClick={() => handleVote(s.id, 'REJECT')}
                                     className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                                     disabled={loading[s.id]}
                                 >
-                                    {loading[s.id] ? 'Processando...' : 'Votar NO'}
+                                    {loading[s.id] ? 'Processando...' : 'Rejeitar'}
                                 </button>
                             </div>
                         )}
 
-                        {/* IN_APPROVAL */}
                         {s.stage === 'IN_APPROVAL' && (
                             <p className="text-blue-600 font-semibold">
                                 Aguardando resultado final da votação
                             </p>
                         )}
 
-                        {/* APPROVED */}
                         {s.stage === 'APPROVED' && (
                             <p className="text-green-600 font-semibold">✅ Aprovado</p>
                         )}
 
-                        {/* REJECTED */}
                         {s.stage === 'REJECTED' && (
                             <p className="text-red-600 font-semibold">❌ Recusado</p>
                         )}
